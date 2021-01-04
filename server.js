@@ -20,13 +20,13 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
     console.log("Succesfully connected to collection ''fatture''!")
     app.use(express.static(__dirname + '/dist/fatture-manager'));
 
-    app.get('/*', (req, res) => {
-      res.sendFile(path.join(__dirname+'/dist/fatture-manager/index.html'));
-    });
-
     //GET
     app.get('/fatture', (req, res) => {
       res.send(fatture);
+    });
+
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname+'/dist/fatture-manager/index.html'));
     });
 
     //POST
