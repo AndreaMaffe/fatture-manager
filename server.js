@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
-const connectionString = process.env.MONGODB_URI;
+const connectionString = process.env.MONGODB_URI || "mongodb+srv://fatture-manager-heroku-app:4sHpgUBSERGEQAGn@cluster0.wnfye.mongodb.net/codigital-DB?retryWrites=true&w=majority";
 
 MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(client =>{
@@ -11,8 +11,9 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
 
   const fattureCollection = client.db("codigital-DB").collection("fatture");
 
-  app.listen(process.env.PORT || 8080, function() {
-    console.log('listening on 3000');
+  const port = process.env.PORT || 8080;
+  app.listen(port, function() {
+    console.log('listening on port ' + port);
   })
 
   fattureCollection.find().toArray()
