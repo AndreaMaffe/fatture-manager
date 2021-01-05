@@ -7,9 +7,18 @@ import { Fattura } from '../domain/fattura';
   providedIn: 'root',
 })
 export class FattureService {
+
+  private endpoint: string = 'http://localhost:8080'; //'https://fatture-manager.herokuapp.com/fatture';
+
   private constructor(private httpClient: HttpClient) {}
 
-  getAssociazioni(): Observable<Fattura[]> {
-    return this.httpClient.get<Fattura[]>('https://fatture-manager.herokuapp.com/fatture');
+  getFatture(): Observable<Fattura[]> {
+    return this.httpClient.get<Fattura[]>(this.endpoint + '/fatture');
   }
+
+  /*
+  postFattura(fattura: Fattura): Observable<Fattura> {
+    return this.httpClient.post<Fattura>(this.endpoint + '/fatture');
+  }
+  */
 }
