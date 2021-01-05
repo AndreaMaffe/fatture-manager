@@ -22,6 +22,7 @@ export class FattureTableComponent {
   @Output() onDeleteFattura = new EventEmitter<Fattura>();
 
   TipologiaFattura = TipologiaFattura;
+  expandedElement: Fattura | null;
   displayedColumns: string[] = ['destinatario', 'servizio', 'dataEmissione', 'stato', 'importo', 'tipologia', 'azioni'];
 
   constructor() {}

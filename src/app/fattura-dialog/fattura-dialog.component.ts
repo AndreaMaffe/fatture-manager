@@ -19,7 +19,7 @@ export class FatturaDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<FatturaDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Fattura) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   close(): void {
     this.dialogRef.close();
