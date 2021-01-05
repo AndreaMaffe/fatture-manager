@@ -16,9 +16,15 @@ export class FattureService {
     return this.httpClient.get<Fattura[]>(this.endpoint + '/fatture');
   }
 
-  /*
   postFattura(fattura: Fattura): Observable<Fattura> {
-    return this.httpClient.post<Fattura>(this.endpoint + '/fatture');
+    return this.httpClient.post<Fattura>(this.endpoint + '/fatture', fattura);
   }
-  */
+
+  putFattura(fattura: Fattura): Observable<Fattura> {
+    return this.httpClient.put<Fattura>(this.endpoint + '/fatture/' + fattura._id, fattura);
+  }
+
+  deleteFattura(fattura: Fattura): Observable<string> {
+    return this.httpClient.delete<string>(this.endpoint + '/fatture/' + fattura._id);
+  }
 }

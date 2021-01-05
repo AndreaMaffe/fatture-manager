@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Fattura } from '../domain/fattura';
-import { FattureService } from './fatture.service';
+import { FatturaDialogComponent } from '../fattura-dialog/fattura-dialog.component';
 
 @Component({
   selector: 'app-fatture-table',
@@ -15,16 +15,23 @@ import { FattureService } from './fatture.service';
     ]),
   ],
 })
-export class FattureTableComponent implements OnInit {
-  displayedColumns: string[] = ['destinatario', 'dataEmissione', 'stato', 'importo', 'tipologia'];
-  fatture: Fattura[];
+export class FattureTableComponent {
 
-  constructor(private fattureService: FattureService) {}
+  @Input() fatture: Fattura[];
 
-  ngOnInit() {
-    this.fattureService.getFatture().subscribe(data => {
-      console.log({data});
-      this.fatture = data;
-    })
+  @Output() onEditFattura = new EventEmitter<Fattura>();
+  @Output() onDeleteFattura = new EventEmitter<Fattura>();
+
+  displayedColumns: string[] = ['destinatario', 'servizio', 'dataEmissione', 'stato', 'importo', 'tipologia', 'azioni'];
+
+  constructor() {}
+
+  editFattura(fattura: Fattura) {
+    this.onEditFattura.emit(fattura);
   }
+
+  deleteFattura(fattura: Fattura) {
+    this.onDeleteFattura.emit(fattura);
+  }
+
 }
