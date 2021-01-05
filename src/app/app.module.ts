@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSlideToggleModule,
     MatChipsModule,
   ],
   providers: [],

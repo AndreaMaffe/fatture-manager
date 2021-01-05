@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Fattura, TipologiaFattura } from '../domain/fattura';
+import { Fattura } from '../domain/fattura';
 
 @Component({
   templateUrl: './fattura-dialog.component.html',
-  styleUrls: ['./fattura-dialog.component.css']
+  styleUrls: ['./fattura-dialog.component.scss']
 })
 export class FatturaDialogComponent {
 

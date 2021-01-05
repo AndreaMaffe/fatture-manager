@@ -1,10 +1,11 @@
 export interface Fattura {
   _id?: string,
   nomeServizio: string,
-  importo: number;
+  importo?: number;
   intestatario: IntestatarioFattura;
   dataEmissione?;
-  tipologia?: TipologiaFattura
+  tipologia?: TipologiaFattura,
+  pagata?: boolean
 }
 
 export enum TipologiaFattura {

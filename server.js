@@ -57,7 +57,8 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
             importo: req.body.importo,
             intestatario: req.body.intestatario,
             dataEmissione: req.body.dataEmissione,
-            tipologia: req.body.tipologia
+            tipologia: req.body.tipologia,
+            pagata: req.body.pagata
           }
         },
         {

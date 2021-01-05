@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
         dataEmissione: result.dataEmissione,
         importo: result.importo,
         tipologia: result.tipologia,
+        pagata: result.pagata,
         intestatario: {
           nome: result.nome,
           indirizzo: result.indirizzo,

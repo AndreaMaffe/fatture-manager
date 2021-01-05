@@ -1,4 +1,7 @@
-<h2 mat-dialog-title>Aggiungi fattura</h2>
+<section style="display: flex; justify-content: space-between;">
+  <h2 mat-dialog-title>Dettagli fattura</h2>
+  <mat-slide-toggle [(ngModel)]="data.pagata">Pagata</mat-slide-toggle>
+</section>
 
 <div style="display: flex; flex-direction: column;">
 
@@ -14,19 +17,20 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Importo (€)</mat-label>
-    <input type="number" matInput [(ngModel)]="data.importo">
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Tipologia pagamento</mat-label>
-    <mat-select [(ngModel)]="data.tipologia">
-      <mat-option *ngFor="let tipologia of tipologiePagamento" [value]="tipologia.value">
-        {{tipologia.display}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <section style="display: flex; justify-content: space-between;">
+    <mat-form-field>
+      <mat-label>Importo (€)</mat-label>
+      <input type="number" matInput [(ngModel)]="data.importo">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tipologia pagamento</mat-label>
+      <mat-select [(ngModel)]="data.tipologia">
+        <mat-option *ngFor="let tipologia of tipologiePagamento" [value]="tipologia.value">
+          {{tipologia.display}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
 
   <mat-form-field>
     <mat-label>Intestatario (Nome o Ragione sociale)</mat-label>
