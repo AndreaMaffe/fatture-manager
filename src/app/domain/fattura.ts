@@ -8,9 +8,9 @@ export interface Fattura {
 }
 
 export enum TipologiaFattura {
-  UNA_TANTUM = 0,
-  MENSILE = 1,
-  ANNUALE = 2,
+  una_tantum = 0,
+  mensile = 1,
+  annuale = 2,
 }
 
 export interface IntestatarioFattura {

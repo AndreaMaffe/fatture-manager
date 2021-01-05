@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Fattura } from '../domain/fattura';
+import { Fattura, TipologiaFattura } from '../domain/fattura';
 import { FatturaDialogComponent } from '../fattura-dialog/fattura-dialog.component';
 
 @Component({
@@ -18,10 +18,10 @@ import { FatturaDialogComponent } from '../fattura-dialog/fattura-dialog.compone
 export class FattureTableComponent {
 
   @Input() fatture: Fattura[];
-
   @Output() onEditFattura = new EventEmitter<Fattura>();
   @Output() onDeleteFattura = new EventEmitter<Fattura>();
 
+  TipologiaFattura = TipologiaFattura;
   displayedColumns: string[] = ['destinatario', 'servizio', 'dataEmissione', 'stato', 'importo', 'tipologia', 'azioni'];
 
   constructor() {}
