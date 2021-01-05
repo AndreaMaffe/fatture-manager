@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Aggiungi fattura</h2>
+
+<div style="display: flex; flex-direction: column;">
+  <mat-form-field>
+    <mat-label>Nome o Ragione sociale</mat-label>
+    <input matInput [(ngModel)]="nome">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Indirizzo</mat-label>
+    <input matInput [(ngModel)]="indirizzo">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Note</mat-label>
+    <input matInput [(ngModel)]="note">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annulla</button>
+  <button mat-button color="primary" [mat-dialog-close]="data.animal" cdkFocusInitial>Conferma</button>
+</div>
