@@ -47,7 +47,7 @@
 
   <ng-container matColumnDef="tipologia">
     <th mat-header-cell *matHeaderCellDef>Tipologia</th>
-    <td mat-cell *matCellDef="let fattura" style="text-transform: capitalize;">{{TipologiaFattura[fattura.tipologia].replace('_', ' ')}}</td>
+    <td mat-cell *matCellDef="let fattura" style="text-transform: capitalize;">{{TipologiaFattura[fattura.tipologia]?.replace('_', ' ')}}</td>
   </ng-container>
 
   <ng-container matColumnDef="azioni">

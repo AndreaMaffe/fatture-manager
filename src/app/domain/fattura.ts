@@ -12,6 +12,9 @@ export enum TipologiaFattura {
   una_tantum = 0,
   mensile = 1,
   annuale = 2,
+  bimestrale = 3,
+  trimestrale = 4,
+  semestrale = 5
 }
 
 export interface IntestatarioFattura {
