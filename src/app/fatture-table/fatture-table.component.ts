@@ -35,4 +35,16 @@ export class FattureTableComponent {
     this.onDeleteFattura.emit(fattura);
   }
 
+  isFatturaInRitardo(fattura: Fattura) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const a = new Date(fattura.dataEmissione);
+    const b = new Date();
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    if (Math.floor((utc2 - utc1) / _MS_PER_DAY) > 30)
+      return true;
+    else return false;
+  }
+
 }

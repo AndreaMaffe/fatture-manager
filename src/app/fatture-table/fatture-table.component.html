@@ -5,10 +5,11 @@
       <div class="example-element-detail"
            [@detailExpand]="fattura == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <p><label>Nome: </label>{{fattura.intestatario.nome}}</p>
-          <p><label>Indirizzo: </label>{{fattura.intestatario.indirizzo}}</p>
-          <p><label>Telefono: </label>{{fattura.intestatario.telefono}}</p>
-          <p><label>Email: </label>{{fattura.intestatario.email}}</p>
+          <h5>{{fattura.intestatario.nome}}</h5>
+          <p *ngIf="fattura.intestatario.indirizzo"><label>Indirizzo: </label>{{fattura.intestatario.indirizzo}}</p>
+          <p *ngIf="fattura.intestatario.telefono"><label>Telefono: </label>{{fattura.intestatario.telefono}}</p>
+          <p *ngIf="fattura.intestatario.email"><label>Email: </label>{{fattura.intestatario.email}}</p>
+          <p *ngIf="fattura.intestatario.iban"><label>Codice IBAN: </label>{{fattura.intestatario.iban}}</p>
         </div>
       </div>
     </td>
@@ -39,7 +40,8 @@
     <td mat-cell *matCellDef="let fattura">
       <mat-chip-list>
         <mat-chip *ngIf="!fattura.dataEmissione" color="warn" selected>Da fatturare</mat-chip>
-        <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata" color="grey" selected>In attesa di pagamento</mat-chip>
+        <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && !isFatturaInRitardo(fattura)" color="grey" selected>In attesa di pagamento</mat-chip>
+        <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && isFatturaInRitardo(fattura)" color="warn" selected>Pagamento in ritardo</mat-chip>
         <mat-chip *ngIf="fattura.pagata" color="success" selected>Pagata</mat-chip>
       </mat-chip-list>
     </td>

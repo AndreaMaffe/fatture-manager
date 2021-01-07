@@ -3,7 +3,7 @@ export interface Fattura {
   nomeServizio: string,
   importo?: number;
   intestatario: IntestatarioFattura;
-  dataEmissione?;
+  dataEmissione?: Date;
   tipologia?: TipologiaFattura,
   pagata?: boolean
 }
