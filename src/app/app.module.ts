@@ -20,12 +20,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FattureTableComponent,
-    FatturaDialogComponent
+    FatturaDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { MatChipsModule } from '@angular/material/chips';
   ],
   providers: [],
   entryComponents: [
-    FatturaDialogComponent
+    FatturaDialogComponent,
+    ConfirmDialogComponent
   ],
   bootstrap: [AppComponent]
 })

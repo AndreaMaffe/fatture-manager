@@ -59,7 +59,7 @@
 
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="close()">Annulla</button>
+<div mat-dialog-actions style="justify-content: flex-end;">
+  <button mat-button [mat-dialog-close]="null">Annulla</button>
   <button mat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Conferma</button>
 </div>

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{data.titolo}}</h2>
+
+<p>{{data.testo}}</p>
+
+<div mat-dialog-actions style="justify-content: flex-end;">
+  <button mat-button [mat-dialog-close]="null">Annulla</button>
+  <button mat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Conferma</button>
+</div>
