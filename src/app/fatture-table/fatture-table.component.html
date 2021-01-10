@@ -6,10 +6,13 @@
            [@detailExpand]="fattura == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
           <h5>{{fattura.intestatario.nome}}</h5>
+          <p *ngIf="fattura.intestatario.partitaIva"><label>P.IVA: </label>{{fattura.intestatario.partitaIva}}</p>
+          <p *ngIf="fattura.intestatario.codiceUnivoco"><label>Codice univoco: </label>{{fattura.intestatario.codiceUnivoco}}</p>
           <p *ngIf="fattura.intestatario.indirizzo"><label>Indirizzo: </label>{{fattura.intestatario.indirizzo}}</p>
           <p *ngIf="fattura.intestatario.telefono"><label>Telefono: </label>{{fattura.intestatario.telefono}}</p>
           <p *ngIf="fattura.intestatario.email"><label>Email: </label>{{fattura.intestatario.email}}</p>
-          <p *ngIf="fattura.intestatario.iban"><label>Codice IBAN: </label>{{fattura.intestatario.iban}}</p>
+          <p *ngIf="fattura.intestatario.pec"><label>PEC: </label>{{fattura.intestatario.pec}}</p>
+
         </div>
       </div>
     </td>

@@ -4,6 +4,7 @@ export interface Fattura {
   importo?: number;
   intestatario: IntestatarioFattura;
   dataEmissione?: Date;
+  dataScadenza?: Date;
   tipologia?: TipologiaFattura,
   pagata?: boolean
 }
@@ -24,5 +25,6 @@ export interface IntestatarioFattura {
   email?: string;
   iban?: string;
   pec?: string;
-  codiceFiscale?: string;
+  codiceUnivoco?: string;
+  partitaIva?: string;
 }

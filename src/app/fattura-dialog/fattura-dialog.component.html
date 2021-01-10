@@ -10,19 +10,28 @@
     <input matInput [(ngModel)]="data.nomeServizio">
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Data emissione</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="data.dataEmissione">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <section style="display: flex; justify-content: space-between;">
+    <mat-form-field style="width: 45%">
+      <mat-label>Data emissione</mat-label>
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="data.dataEmissione">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field style="width: 45%">
+      <mat-label>Data scadenza</mat-label>
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="data.dataScadenza">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </section>
 
   <section style="display: flex; justify-content: space-between;">
     <mat-form-field>
       <mat-label>Importo (€)</mat-label>
       <input type="number" matInput [(ngModel)]="data.importo">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field style="width: 50%;">
       <mat-label>Tipologia pagamento</mat-label>
       <mat-select [(ngModel)]="data.tipologia">
         <mat-option *ngFor="let tipologia of tipologiePagamento" [value]="tipologia.value">
@@ -38,6 +47,16 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>P.IVA</mat-label>
+    <input matInput [(ngModel)]="data.partitaIva">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Codice univoco</mat-label>
+    <input matInput [(ngModel)]="data.codiceUnivoco">
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Indirizzo</mat-label>
     <input matInput [(ngModel)]="data.indirizzo">
   </mat-form-field>
@@ -47,15 +66,17 @@
     <input matInput [(ngModel)]="data.telefono">
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="data.email">
-  </mat-form-field>
+  <section style="display: flex; justify-content: space-between;">
+    <mat-form-field style="width: 46%;">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="data.email">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>PEC</mat-label>
-    <input matInput [(ngModel)]="data.pec">
-  </mat-form-field>
+    <mat-form-field style="width: 46%;">
+      <mat-label>PEC</mat-label>
+      <input matInput [(ngModel)]="data.pec">
+    </mat-form-field>
+  </section>
 
 </div>
 

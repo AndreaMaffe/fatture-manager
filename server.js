@@ -48,30 +48,29 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
   app.put('/fatture/:id', (req, res) => {
     const idFattura = req.params.id;
     const fattureCollection = client.db("codigital-DB").collection("fatture");
-    if (req.body.nomeServizio && req.body.intestatario.nome) {
-      fattureCollection.findOneAndUpdate(
-        {_id: new MongoDB.ObjectID(idFattura)},
-        {
-          $set: {
-            nomeServizio: req.body.nomeServizio,
-            importo: req.body.importo,
-            intestatario: req.body.intestatario,
-            dataEmissione: req.body.dataEmissione,
-            tipologia: req.body.tipologia,
-            pagata: req.body.pagata
-          }
-        },
-        {
-          upsert: true
+    fattureCollection.findOneAndUpdate(
+      {_id: new MongoDB.ObjectID(idFattura)},
+      {
+        $set: {
+          nomeServizio: req.body.nomeServizio,
+          importo: req.body.importo,
+          intestatario: req.body.intestatario,
+          dataEmissione: req.body.dataEmissione,
+          dataScadenza: req.body.dataScadenza,
+          tipologia: req.body.tipologia,
+          pagata: req.body.pagata
         }
-      )
-      .then(result => {
-        res.send(result.ops[0]);
-      })
-      .catch(error => {
-        res.send(error);
-      })
-    }
+      },
+      {
+        upsert: true
+      }
+    )
+    .then(result => {
+      res.send(result.ops[0]);
+    })
+    .catch(error => {
+      res.send(error);
+    })
   });
 
   //DELETE

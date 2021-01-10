@@ -32,18 +32,23 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         const fattura: Fattura = {
           nomeServizio: result.nomeServizio,
           dataEmissione: result.dataEmissione,
+          dataScadenza: result.dataScadenza,
           importo: result.importo,
           tipologia: result.tipologia,
+          pagata: result.pagata,
           intestatario: {
             nome: result.nome,
             indirizzo: result.indirizzo,
             telefono: result.telefono,
             email: result.email,
             iban: result.iban,
-            pec: result.pec
+            pec: result.pec,
+            codiceUnivoco: result.codiceUnivoco,
+            partitaIva: result.partitaIva
           }
         }
         this.postFattura(fattura);
@@ -54,7 +59,23 @@ export class AppComponent implements OnInit {
   openEditFatturaDialog(fattura: Fattura) {
     const dialogRef = this.dialogService.open(FatturaDialogComponent, {
       width: '600px',
-      data: fattura
+      data: {
+        _id: fattura._id,
+        nomeServizio: fattura.nomeServizio,
+        dataEmissione: fattura.dataEmissione,
+        dataScadenza: fattura.dataScadenza,
+        importo: fattura.importo,
+        tipologia: fattura.tipologia,
+        pagata: fattura.pagata,
+        nome: fattura.intestatario.nome,
+        indirizzo: fattura.intestatario.indirizzo,
+        telefono: fattura.intestatario.telefono,
+        email: fattura.intestatario.email,
+        iban: fattura.intestatario.iban,
+        pec: fattura.intestatario.pec,
+        codiceUnivoco: fattura.intestatario.codiceUnivoco,
+        partitaIva: fattura.intestatario.partitaIva
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -63,6 +84,7 @@ export class AppComponent implements OnInit {
           _id: result._id,
           nomeServizio: result.nomeServizio,
           dataEmissione: result.dataEmissione,
+          dataScadenza: result.dataScadenza,
           importo: result.importo,
           tipologia: result.tipologia,
           pagata: result.pagata,
@@ -72,7 +94,9 @@ export class AppComponent implements OnInit {
             telefono: result.telefono,
             email: result.email,
             iban: result.iban,
-            pec: result.pec
+            pec: result.pec,
+            codiceUnivoco: result.codiceUnivoco,
+            partitaIva: result.partitaIva
           }
         }
         this.putFattura(fattura);
@@ -96,7 +120,10 @@ export class AppComponent implements OnInit {
 
   putFattura(fattura: Fattura) {
     this.fattureService.putFattura(fattura).subscribe(res => {
-
+      const fatturaDaModificare = this.fatture.find(f => f._id === fattura._id);
+      const index = this.fatture.indexOf(fatturaDaModificare);
+      this.fatture[index] = fattura;
+      this.fatture = [...this.fatture];
     });
   }
 
