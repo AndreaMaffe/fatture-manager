@@ -4,6 +4,8 @@ const app = express();
 const MongoDB =  require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const connectionString = process.env.MONGODB_URI || "mongodb+srv://fatture-manager-heroku-app:4sHpgUBSERGEQAGn@cluster0.wnfye.mongodb.net/codigital-DB?retryWrites=true&w=majority";
+const schedule = require('node-schedule');
+const nodemailer = require('nodemailer');
 
 MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(client =>{
@@ -88,12 +90,25 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
 
 });
 
+const transporter = nodemailer.createTransport({
+  host: "smtp.stackmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "no-reply@codigital.it",
+    pass: "Viktordrago07"
+  }
+});
 
-  /*
+// verify connection configuration
+transporter.verify(function(error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
+
+schedule.scheduleJob({hour: 13, minute: 50}, () => {
 
 })
-.catch(err=>{
-  console.log(`db error ${err.message}`);
-  process.exit(-1)
-});
-*/
