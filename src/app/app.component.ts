@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
         }
         this.postFattura(fattura);
       }
+      else console.log("errore");
     });
   }
 

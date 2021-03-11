@@ -1,26 +1,31 @@
 <section style="display: flex; justify-content: space-between;">
   <h2 mat-dialog-title>Dettagli fattura</h2>
-  <mat-slide-toggle [(ngModel)]="data.pagata">Pagata</mat-slide-toggle>
+  <mat-slide-toggle [(ngModel)]="fattura.pagata">Pagata</mat-slide-toggle>
 </section>
 
 <div style="display: flex; flex-direction: column;">
 
   <mat-form-field>
-    <mat-label>Nome servizio</mat-label>
-    <input matInput [(ngModel)]="data.nomeServizio">
+    <mat-label>Intestatario (Nome o Ragione sociale) *</mat-label>
+    <input matInput [(ngModel)]="fattura.nome">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nome servizio *</mat-label>
+    <input matInput [(ngModel)]="fattura.nomeServizio">
   </mat-form-field>
 
   <section style="display: flex; justify-content: space-between;">
     <mat-form-field style="width: 45%">
       <mat-label>Data emissione</mat-label>
-      <input matInput [matDatepicker]="picker1" [(ngModel)]="data.dataEmissione">
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="fattura.dataEmissione">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field style="width: 45%">
       <mat-label>Data scadenza</mat-label>
-      <input matInput [matDatepicker]="picker2" [(ngModel)]="data.dataScadenza">
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="fattura.dataScadenza">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -29,11 +34,11 @@
   <section style="display: flex; justify-content: space-between;">
     <mat-form-field>
       <mat-label>Importo (€)</mat-label>
-      <input type="number" matInput [(ngModel)]="data.importo">
+      <input type="number" matInput [(ngModel)]="fattura.importo">
     </mat-form-field>
     <mat-form-field style="width: 50%;">
       <mat-label>Tipologia pagamento</mat-label>
-      <mat-select [(ngModel)]="data.tipologia">
+      <mat-select [(ngModel)]="fattura.tipologia">
         <mat-option *ngFor="let tipologia of tipologiePagamento" [value]="tipologia.value">
           {{tipologia.display}}
         </mat-option>
@@ -41,40 +46,37 @@
     </mat-form-field>
   </section>
 
-  <mat-form-field>
-    <mat-label>Intestatario (Nome o Ragione sociale)</mat-label>
-    <input matInput [(ngModel)]="data.nome">
-  </mat-form-field>
+  <section style="display: flex; justify-content: space-between;">
+    <mat-form-field style="width: 45%;">
+      <mat-label>P.IVA</mat-label>
+      <input matInput [(ngModel)]="fattura.partitaIva">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>P.IVA</mat-label>
-    <input matInput [(ngModel)]="data.partitaIva">
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Codice univoco</mat-label>
-    <input matInput [(ngModel)]="data.codiceUnivoco">
-  </mat-form-field>
+    <mat-form-field style="width: 45%;">
+      <mat-label>Codice univoco</mat-label>
+      <input matInput [(ngModel)]="fattura.codiceUnivoco">
+    </mat-form-field>
+  </section>
 
   <mat-form-field>
     <mat-label>Indirizzo</mat-label>
-    <input matInput [(ngModel)]="data.indirizzo">
+    <input matInput [(ngModel)]="fattura.indirizzo">
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Telefono</mat-label>
-    <input matInput [(ngModel)]="data.telefono">
+    <input matInput [(ngModel)]="fattura.telefono">
   </mat-form-field>
 
   <section style="display: flex; justify-content: space-between;">
     <mat-form-field style="width: 46%;">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="data.email">
+      <input matInput [(ngModel)]="fattura.email">
     </mat-form-field>
 
     <mat-form-field style="width: 46%;">
       <mat-label>PEC</mat-label>
-      <input matInput [(ngModel)]="data.pec">
+      <input matInput [(ngModel)]="fattura.pec">
     </mat-form-field>
   </section>
 
@@ -82,5 +84,7 @@
 
 <div mat-dialog-actions style="justify-content: flex-end;">
   <button mat-button [mat-dialog-close]="null">Annulla</button>
-  <button mat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Conferma</button>
+  <button mat-button cdkFocusInitial color="primary"
+          [mat-dialog-close]="fattura"
+          [disabled]="!fattura.nome || !fattura.nomeServizio">Conferma</button>
 </div>

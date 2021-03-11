@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Fattura, TipologiaFattura } from '../domain/fattura';
-import { FatturaDialogComponent } from '../fattura-dialog/fattura-dialog.component';
 
 @Component({
   selector: 'app-fatture-table',
