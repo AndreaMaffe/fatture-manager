@@ -1,51 +1,55 @@
-table {
+#fatture-table {
   width: 100%;
 }
 
-tr.example-detail-row {
+#fatture-table tr.fattura-detail-row {
   height: 0;
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
+#fatture-table tr.fattura-row:hover {
   cursor: pointer;
   background: whitesmoke;
 }
 
-tr.example-element-row:not(.example-expanded-row):active {
+#fatture-table tr.fattura-row:active {
   background: #efefef;
 }
 
-.example-element-row td {
+#fatture-table .fattura-row td {
   border-bottom-width: 0;
 }
 
-.example-element-detail {
+#fatture-table .fattura-detail {
   overflow: hidden;
   display: flex;
 }
 
-.example-element-diagram {
+#fatture-table .fattura-diagram {
   min-width: 80px;
   padding: 8px;
   font-weight: lighter;
   margin: 8px 0;
 }
 
-.example-element-symbol {
+#fatture-table .fattura-symbol {
   font-weight: bold;
   font-size: 40px;
   line-height: normal;
 }
 
-.example-element-description {
+#fatture-table .fattura-description {
   padding: 16px;
 }
 
-.example-element-description-attribution {
+#fatture-table .fattura-description-attribution {
   opacity: 0.5;
 }
 
-.mat-success {
+#fatture-table .mat-button {
+  margin-top: 7px;
+}
+
+#fatture-table .mat-success {
   background-color: forestgreen !important;
   color: white;
 }

@@ -10,6 +10,7 @@ import { FatturaDialogComponent } from './fattura-dialog/fattura-dialog.componen
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,6 +37,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HttpClientModule,
     MatToolbarModule,
     MatTableModule,
+    MatPaginatorModule,
     MatGridListModule,
     MatButtonModule,
     MatIconModule,

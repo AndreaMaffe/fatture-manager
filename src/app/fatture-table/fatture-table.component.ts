@@ -22,7 +22,7 @@ export class FattureTableComponent {
 
   TipologiaFattura = TipologiaFattura;
   expandedElement: Fattura | null;
-  displayedColumns: string[] = ['destinatario', 'servizio', 'dataEmissione', 'stato', 'importo', 'tipologia', 'azioni'];
+  displayedColumns: string[] = ['intestatario', 'servizio', 'importo', 'dataEmissione', 'stato', 'tipologia', 'azioni'];
 
   constructor() {}
 

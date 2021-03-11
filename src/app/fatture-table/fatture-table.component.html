@@ -1,77 +1,80 @@
-<table *ngIf="fatture" multiTemplateDataRows mat-table [dataSource]="fatture" class="mat-elevation-z6" style="width: 100%;">
+<div class="mat-elevation-z6">
+  <table id="fatture-table" *ngIf="fatture" multiTemplateDataRows mat-table [dataSource]="fatture" style="width: 100%;">
 
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let fattura" [attr.colspan]="displayedColumns.length">
-      <div class="example-element-detail"
-           [@detailExpand]="fattura == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-element-diagram">
-          <h5>{{fattura.intestatario.nome}}</h5>
-          <p *ngIf="fattura.intestatario.partitaIva"><label>P.IVA: </label>{{fattura.intestatario.partitaIva}}</p>
-          <p *ngIf="fattura.intestatario.codiceUnivoco"><label>Codice univoco: </label>{{fattura.intestatario.codiceUnivoco}}</p>
-          <p *ngIf="fattura.intestatario.indirizzo"><label>Indirizzo: </label>{{fattura.intestatario.indirizzo}}</p>
-          <p *ngIf="fattura.intestatario.telefono"><label>Telefono: </label>{{fattura.intestatario.telefono}}</p>
-          <p *ngIf="fattura.intestatario.email"><label>Email: </label>{{fattura.intestatario.email}}</p>
-          <p *ngIf="fattura.intestatario.pec"><label>PEC: </label>{{fattura.intestatario.pec}}</p>
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let fattura" [attr.colspan]="displayedColumns.length">
+        <div class="fattura-detail"
+            [@detailExpand]="fattura == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="fattura-diagram">
+            <h5>{{fattura.intestatario.nome}}</h5>
+            <p *ngIf="fattura.intestatario.partitaIva"><label>P.IVA: </label>{{fattura.intestatario.partitaIva}}</p>
+            <p *ngIf="fattura.intestatario.codiceUnivoco"><label>Codice univoco: </label>{{fattura.intestatario.codiceUnivoco}}</p>
+            <p *ngIf="fattura.intestatario.indirizzo"><label>Indirizzo: </label>{{fattura.intestatario.indirizzo}}</p>
+            <p *ngIf="fattura.intestatario.telefono"><label>Telefono: </label>{{fattura.intestatario.telefono}}</p>
+            <p *ngIf="fattura.intestatario.email"><label>Email: </label>{{fattura.intestatario.email}}</p>
+            <p *ngIf="fattura.intestatario.pec"><label>PEC: </label>{{fattura.intestatario.pec}}</p>
 
+          </div>
         </div>
-      </div>
-    </td>
-  </ng-container>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="destinatario">
-    <th mat-header-cell *matHeaderCellDef>Intestatario</th>
-    <td mat-cell *matCellDef="let fattura">{{fattura.intestatario.nome}}</td>
-  </ng-container>
+    <ng-container matColumnDef="intestatario">
+      <th mat-header-cell *matHeaderCellDef>Intestatario</th>
+      <td mat-cell *matCellDef="let fattura">{{fattura.intestatario.nome}}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="servizio">
-    <th mat-header-cell *matHeaderCellDef>Servizio</th>
-    <td mat-cell *matCellDef="let fattura">{{fattura.nomeServizio}}</td>
-  </ng-container>
+    <ng-container matColumnDef="servizio">
+      <th mat-header-cell *matHeaderCellDef>Servizio</th>
+      <td mat-cell *matCellDef="let fattura">{{fattura.nomeServizio}}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="dataEmissione">
-    <th mat-header-cell *matHeaderCellDef>Fattura emessa il</th>
-    <td mat-cell *matCellDef="let fattura">{{fattura.dataEmissione | date: 'dd/MM/yyyy' }}</td>
-  </ng-container>
+    <ng-container matColumnDef="importo">
+      <th mat-header-cell *matHeaderCellDef>Importo</th>
+      <td mat-cell *matCellDef="let fattura">{{ fattura.importo ? fattura.importo + '€' : '' }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="importo">
-    <th mat-header-cell *matHeaderCellDef>Importo</th>
-    <td mat-cell *matCellDef="let fattura">{{fattura.importo}}€</td>
-  </ng-container>
+    <ng-container matColumnDef="dataEmissione">
+      <th mat-header-cell *matHeaderCellDef>Fattura emessa il</th>
+      <td mat-cell *matCellDef="let fattura">{{fattura.dataEmissione | date: 'dd/MM/yyyy' }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="stato">
-    <th mat-header-cell *matHeaderCellDef>Stato</th>
-    <td mat-cell *matCellDef="let fattura">
-      <mat-chip-list>
-        <mat-chip *ngIf="!fattura.dataEmissione" color="warn" selected>Da fatturare</mat-chip>
-        <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && !isFatturaInRitardo(fattura)" color="grey" selected>In attesa di pagamento</mat-chip>
-        <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && isFatturaInRitardo(fattura)" color="warn" selected>Pagamento in ritardo</mat-chip>
-        <mat-chip *ngIf="fattura.pagata" color="success" selected>Pagata</mat-chip>
-      </mat-chip-list>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="stato">
+      <th mat-header-cell *matHeaderCellDef>Stato</th>
+      <td mat-cell *matCellDef="let fattura">
+        <mat-chip-list>
+          <mat-chip *ngIf="!fattura.dataEmissione" color="warn" selected>Da fatturare</mat-chip>
+          <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && !isFatturaInRitardo(fattura)" color="grey" selected>In attesa di pagamento</mat-chip>
+          <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && isFatturaInRitardo(fattura)" color="warn" selected>Pagamento in ritardo</mat-chip>
+          <mat-chip *ngIf="fattura.pagata" color="success" selected>Pagata</mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="tipologia">
-    <th mat-header-cell *matHeaderCellDef>Tipologia</th>
-    <td mat-cell *matCellDef="let fattura" style="text-transform: capitalize;">{{TipologiaFattura[fattura.tipologia]?.replace('_', ' ')}}</td>
-  </ng-container>
+    <ng-container matColumnDef="tipologia">
+      <th mat-header-cell *matHeaderCellDef>Tipologia</th>
+      <td mat-cell *matCellDef="let fattura" style="text-transform: capitalize;">{{TipologiaFattura[fattura.tipologia]?.replace('_', ' ')}}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="azioni">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let fattura" style="float: right;">
-      <button mat-button color="secondary" (click)="editFattura(fattura)" title="Modifica fattura">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-button color="warn" (click)="deleteFattura(fattura)" title="Elimina fattura">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="azioni">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let fattura" style="float: right;">
+        <button mat-button color="secondary" (click)="editFattura(fattura)" title="Modifica fattura">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="deleteFattura(fattura)" title="Elimina fattura">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-      class="example-element-row"
-      [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="fattura-row"
+        [class.fattura-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="fattura-detail-row"></tr>
+  </table>
+  <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>-->
+</div>
