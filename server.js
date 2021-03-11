@@ -90,25 +90,5 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
 
 });
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.stackmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: "no-reply@codigital.it",
-    pass: "Viktordrago07"
-  }
-});
 
-// verify connection configuration
-transporter.verify(function(error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
 
-schedule.scheduleJob({hour: 13, minute: 50}, () => {
-
-})
