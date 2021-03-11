@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { Fattura, TipologiaFattura } from '../domain/fattura';
 
 @Component({
@@ -14,7 +14,7 @@ import { Fattura, TipologiaFattura } from '../domain/fattura';
     ]),
   ],
 })
-export class FattureTableComponent {
+export class FattureTableComponent implements OnChanges {
 
   @Input() fatture: Fattura[];
   @Output() onEditFattura = new EventEmitter<Fattura>();
@@ -25,6 +25,10 @@ export class FattureTableComponent {
   displayedColumns: string[] = ['intestatario', 'servizio', 'importo', 'dataEmissione', 'stato', 'tipologia', 'azioni'];
 
   constructor() {}
+
+  ngOnChanges(): void {
+    this.fatture.sort(this.compareFatture);
+  }
 
   editFattura(fattura: Fattura) {
     this.onEditFattura.emit(fattura);
@@ -44,6 +48,17 @@ export class FattureTableComponent {
     if (Math.floor((utc2 - utc1) / _MS_PER_DAY) > 30)
       return true;
     else return false;
+  }
+
+  compareFatture (f1: Fattura, f2: Fattura) {
+    console.log(f1.intestatario.nome + ' VS ' + f2.intestatario.nome)
+    if ( f1.intestatario.nome < f2.intestatario.nome ){
+      return -1;
+    }
+    if ( f1.intestatario.nome > f2.intestatario.nome ){
+      return 1;
+    }
+    return 0;
   }
 
 }
