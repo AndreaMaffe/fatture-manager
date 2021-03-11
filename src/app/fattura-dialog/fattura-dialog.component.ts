@@ -8,7 +8,7 @@ import { Fattura } from '../domain/fattura';
 })
 export class FatturaDialogComponent {
 
-  fattura: Fattura;
+  fattura;
 
   tipologiePagamento = [
     {value: '0', display: 'Una tantum'},
@@ -22,7 +22,7 @@ export class FatturaDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<FatturaDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public f: Fattura) {
+    @Inject(MAT_DIALOG_DATA) public f) {
       this.fattura = f;
       console.log(this.fattura);
     }
