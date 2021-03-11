@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
       width: '800px',
       data: {
         titolo: 'Conferma eliminazione fattura',
-        testo: 'Sei sicuro di voler eliminare la fattura \"' + fattura.nomeServizio + '\"? L\'azione non sarà reversibile.'
+        testo: 'Sei sicuro di voler eliminare la fattura \"' + fattura.nomeServizio + '\"?'
       }
     });
 
