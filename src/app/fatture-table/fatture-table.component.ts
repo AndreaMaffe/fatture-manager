@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { Fattura, TipologiaFattura } from '../domain/fattura';
+import { FattureService } from '../services/fatture.service';
 
 @Component({
   selector: 'app-fatture-table',
@@ -22,9 +23,9 @@ export class FattureTableComponent {
 
   TipologiaFattura = TipologiaFattura;
   expandedElement: Fattura | null;
-  displayedColumns: string[] = ['intestatario', 'servizio', 'importo'/*, 'dataEmissione'*/, 'stato', 'tipologia', 'azioni'];
+  displayedColumns: string[] = ['intestatario', 'servizio', 'importo'/*, 'dataEmissione'*/, 'stato', 'tipologia', 'periodo', 'azioni'];
 
-  constructor() {}
+  constructor(private fattureService: FattureService) {}
 
   editFattura(fattura: Fattura) {
     this.onEditFattura.emit(fattura);
@@ -34,16 +35,12 @@ export class FattureTableComponent {
     this.onDeleteFattura.emit(fattura);
   }
 
-  isFatturaInRitardo(fattura: Fattura) {
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-    const a = new Date(fattura.dataEmissione);
-    const b = new Date();
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  getPeriodoFattura(fattura: Fattura) {
+    return this.fattureService.getPeriodoFattura(fattura);
+  }
 
-    if (Math.floor((utc2 - utc1) / _MS_PER_DAY) > 30)
-      return true;
-    else return false;
+  isFatturaInRitardo(fattura: Fattura) {
+    return this.fattureService.isFatturaInRitardo(fattura);
   }
 
 }
