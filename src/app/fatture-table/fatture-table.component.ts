@@ -14,7 +14,7 @@ import { Fattura, TipologiaFattura } from '../domain/fattura';
     ]),
   ],
 })
-export class FattureTableComponent implements OnChanges {
+export class FattureTableComponent {
 
   @Input() fatture: Fattura[];
   @Output() onEditFattura = new EventEmitter<Fattura>();
@@ -22,13 +22,9 @@ export class FattureTableComponent implements OnChanges {
 
   TipologiaFattura = TipologiaFattura;
   expandedElement: Fattura | null;
-  displayedColumns: string[] = ['intestatario', 'servizio', 'importo', 'dataEmissione', 'stato', 'tipologia', 'azioni'];
+  displayedColumns: string[] = ['intestatario', 'servizio', 'importo'/*, 'dataEmissione'*/, 'stato', 'tipologia', 'azioni'];
 
   constructor() {}
-
-  ngOnChanges(): void {
-    this.fatture.sort(this.compareFatture);
-  }
 
   editFattura(fattura: Fattura) {
     this.onEditFattura.emit(fattura);
@@ -48,17 +44,6 @@ export class FattureTableComponent implements OnChanges {
     if (Math.floor((utc2 - utc1) / _MS_PER_DAY) > 30)
       return true;
     else return false;
-  }
-
-  compareFatture (f1: Fattura, f2: Fattura) {
-    console.log(f1.intestatario.nome + ' VS ' + f2.intestatario.nome)
-    if ( f1.intestatario.nome < f2.intestatario.nome ){
-      return -1;
-    }
-    if ( f1.intestatario.nome > f2.intestatario.nome ){
-      return 1;
-    }
-    return 0;
   }
 
 }

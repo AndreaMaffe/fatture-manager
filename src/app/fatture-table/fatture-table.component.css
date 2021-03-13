@@ -1,5 +1,6 @@
 #fatture-table {
   width: 100%;
+  margin-top: 20px;
 }
 
 #fatture-table tr.fattura-detail-row {

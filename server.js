@@ -59,6 +59,7 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
           intestatario: req.body.intestatario,
           dataEmissione: req.body.dataEmissione,
           dataScadenza: req.body.dataScadenza,
+          dataDiPartenza: req.body.dataDiPartenza,
           tipologia: req.body.tipologia,
           pagata: req.body.pagata
         }
@@ -90,5 +91,27 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
 
 });
 
+let transporter = nodemailer.createTransport(
+  "smtps://no-reply@codigital.it:pQe78vI829q1@smtp.stackmail.com/?pool=true"
+);
+
+// verify connection configuration
+transporter.verify( (error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    schedule.scheduleJob({hour: 18, minute: 17}, () => {
+      transporter.sendMail({
+        from: 'no-reply@codigital.it',
+        to: 'andreamafessoni@gmail.com',
+        subject: 'Message',
+        text: 'I hope this message gets delivered!'
+      }, (err, info) => {
+          console.log(info.envelope);
+          console.log(info.messageId);
+      });
+    });
+  }
+});
 
 

@@ -5,6 +5,7 @@ export interface Fattura {
   intestatario: IntestatarioFattura;
   dataEmissione?: Date;
   dataScadenza?: Date;
+  dataDiPartenza?: Date,
   tipologia?: TipologiaFattura,
   pagata?: boolean
 }

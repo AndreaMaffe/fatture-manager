@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Fattura } from '../domain/fattura';
 
 @Component({
   templateUrl: './fattura-dialog.component.html',
@@ -24,7 +23,6 @@ export class FatturaDialogComponent {
     public dialogRef: MatDialogRef<FatturaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public f) {
       this.fattura = f;
-      console.log(this.fattura);
     }
 
 }
