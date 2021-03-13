@@ -10,7 +10,7 @@ import { FatturaDialogComponent } from './fattura-dialog/fattura-dialog.componen
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,11 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatNativeDateModule,
     MatSlideToggleModule,
     MatChipsModule,
+    MatButtonToggleModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'it-IT' }
+  ],
   entryComponents: [
     FatturaDialogComponent,
     ConfirmDialogComponent

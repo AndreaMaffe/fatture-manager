@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   title = 'fatture-manager';
   logoSrc = 'assets/logo-codigital.png';
   fatture: Fattura[];
+  fattureVisualizzate: Fattura[];
 
   constructor(
     private dialogService: MatDialog,
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
           nomeServizio: result.nomeServizio,
           dataEmissione: result.dataEmissione,
           dataScadenza: result.dataScadenza,
+          dataDiPartenza: result.dataDiPartenza,
           importo: result.importo,
           tipologia: result.tipologia,
           pagata: result.pagata,
@@ -65,6 +67,7 @@ export class AppComponent implements OnInit {
         nomeServizio: fattura.nomeServizio,
         dataEmissione: fattura.dataEmissione,
         dataScadenza: fattura.dataScadenza,
+        dataDiPartenza: fattura.dataDiPartenza,
         importo: fattura.importo,
         tipologia: fattura.tipologia,
         pagata: fattura.pagata,
@@ -86,6 +89,7 @@ export class AppComponent implements OnInit {
           nomeServizio: result.nomeServizio,
           dataEmissione: result.dataEmissione,
           dataScadenza: result.dataScadenza,
+          dataDiPartenza: result.dataDiPartenza,
           importo: result.importo,
           tipologia: result.tipologia,
           pagata: result.pagata,
@@ -100,6 +104,7 @@ export class AppComponent implements OnInit {
             partitaIva: result.partitaIva
           }
         }
+        console.log({result});
         this.putFattura(fattura);
       }
     });
@@ -109,22 +114,26 @@ export class AppComponent implements OnInit {
     this.fattureService.getFatture().subscribe( (data: Fattura[]) => {
       console.log({data});
       this.fatture = data;
+      this.fattureVisualizzate = data.sort(this.compareFatture);
     })
   }
 
   postFattura(fattura: Fattura) {
+    console.log({fattura});
     this.fattureService.postFattura(fattura).subscribe( (data: Fattura) => {
       this.fatture.push(data);
-      this.fatture = [...this.fatture];
+      this.fattureVisualizzate = [...this.fatture].sort(this.compareFatture);;
     });
   }
 
   putFattura(fattura: Fattura) {
+    console.log({fattura});
     this.fattureService.putFattura(fattura).subscribe(res => {
+      console.log(res);
       const fatturaDaModificare = this.fatture.find(f => f._id === fattura._id);
       const index = this.fatture.indexOf(fatturaDaModificare);
       this.fatture[index] = fattura;
-      this.fatture = [...this.fatture];
+      this.fattureVisualizzate = [...this.fatture].sort(this.compareFatture);
     });
   }
 
@@ -141,8 +150,28 @@ export class AppComponent implements OnInit {
       if (result) {
         this.fattureService.deleteFattura(fattura).subscribe( (data: any) => {
           this.fatture = [...this.fatture.filter(fattura => fattura._id !== data._id)];
+          this.fattureVisualizzate = this.fatture.sort(this.compareFatture);
         })
       }
     });
+  }
+
+  compareFatture (f1: Fattura, f2: Fattura) {
+    if ( f1.intestatario.nome < f2.intestatario.nome ){
+      return -1;
+    }
+    if ( f1.intestatario.nome > f2.intestatario.nome ){
+      return 1;
+    }
+    return 0;
+  }
+
+  filterFatture(filter: string) {
+    switch(filter) {
+      case 'TUTTE': this.fattureVisualizzate = this.fatture; break;
+      case 'PAGATE': this.fattureVisualizzate = this.fatture.filter(fatt => fatt.pagata); break;
+      case 'DA_FATTURARE': this.fattureVisualizzate = this.fatture.filter(fatt => !fatt.dataEmissione); break;
+      case 'IN_RITARDO': this.fattureVisualizzate = this.fatture.filter(fatt => fatt.dataEmissione && fatt.dataEmissione < new Date() ); break;
+    }
   }
 }

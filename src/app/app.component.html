@@ -4,11 +4,20 @@
 </mat-toolbar>
 
 <div style="padding: 20px;">
-  <app-fatture-table [fatture]="fatture"
+
+  <span style="margin-right: 15px;">Mostra:</span>
+  <mat-button-toggle-group (change)="filterFatture($event.value)" value="TUTTE">
+    <mat-button-toggle value="TUTTE">Tutte</mat-button-toggle>
+    <mat-button-toggle value="PAGATE">Pagate</mat-button-toggle>
+    <mat-button-toggle value="DA_FATTURARE">Da fatturare</mat-button-toggle>
+    <mat-button-toggle value="IN_RITARDO">In ritardo</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <app-fatture-table  [fatture]="fattureVisualizzate"
                       (onEditFattura)="openEditFatturaDialog($event)"
                       (onDeleteFattura)="deleteFattura($event)">
   </app-fatture-table>
-  <button mat-fab color="primary" style="position: absolute; bottom: 30px; right: 30px;"
+  <button mat-fab color="primary" style="position: sticky; bottom: 30px; left: 95%;"
           title="Aggiungi fattura" (click)="openAddFatturaDialog()">
     <mat-icon>add</mat-icon>
   </button>
