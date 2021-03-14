@@ -50,6 +50,9 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
   app.put('/fatture/:id', (req, res) => {
     const idFattura = req.params.id;
     const fattureCollection = client.db("codigital-DB").collection("fatture");
+    fattureCollection.findOne({_id: new MongoDB.ObjectID(idFattura)}).then(result => {
+
+    })
     fattureCollection.findOneAndUpdate(
       {_id: new MongoDB.ObjectID(idFattura)},
       {
@@ -69,7 +72,8 @@ MongoClient.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology
       }
     )
     .then(result => {
-      res.send(result.ops[0]);
+      //const resp = {old: result.value, new: result.ops[0]}
+      res.send(result.value);
     })
     .catch(error => {
       res.send(error);

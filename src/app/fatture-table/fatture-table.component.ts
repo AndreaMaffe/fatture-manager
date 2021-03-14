@@ -35,8 +35,10 @@ export class FattureTableComponent {
     this.onDeleteFattura.emit(fattura);
   }
 
-  getPeriodoFattura(fattura: Fattura) {
-    return this.fattureService.getPeriodoFattura(fattura);
+  getPeriodoFattura(fattura: Fattura): string {
+    const dataInizio = new Date(fattura.dataDiPartenza);
+    const dataFine = this.fattureService.getDataFineFattura(fattura);
+    return dataInizio.toLocaleDateString() + ' - ' + dataFine.toLocaleDateString();;
   }
 
   isFatturaInRitardo(fattura: Fattura) {

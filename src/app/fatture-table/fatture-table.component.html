@@ -58,7 +58,7 @@
 
     <ng-container matColumnDef="periodo">
       <th mat-header-cell *matHeaderCellDef>Periodo</th>
-      <td mat-cell *matCellDef="let fattura">{{getPeriodoFattura(fattura)}}</td>
+      <td mat-cell *matCellDef="let fattura">{{fattura.dataDiPartenza ? getPeriodoFattura(fattura) : ''}}</td>
     </ng-container>
 
     <ng-container matColumnDef="azioni">

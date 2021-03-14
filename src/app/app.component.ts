@@ -128,12 +128,13 @@ export class AppComponent implements OnInit {
 
   putFattura(fattura: Fattura) {
     console.log({fattura});
-    this.fattureService.putFattura(fattura).subscribe(res => {
-      console.log(res);
+    this.fattureService.putFattura(fattura).subscribe( (oldFattura: Fattura) => {
       const fatturaDaModificare = this.fatture.find(f => f._id === fattura._id);
       const index = this.fatture.indexOf(fatturaDaModificare);
       this.fatture[index] = fattura;
       this.fattureVisualizzate = [...this.fatture].sort(this.compareFatture);
+      if (!oldFattura.dataEmissione && fattura.dataEmissione && fattura.tipologia && fattura.tipologia !== 0)
+        this.repeatFattura(fattura);
     });
   }
 
@@ -156,6 +157,16 @@ export class AppComponent implements OnInit {
     });
   }
 
+  repeatFattura(fattura: Fattura) {
+    let newFattura = {...fattura};
+    const newDateDiPartenza = this.fattureService.getDataFineFattura(fattura);
+    newFattura._id = null;
+    newFattura.dataDiPartenza = newDateDiPartenza;
+    newFattura.dataEmissione = null;
+    newFattura.pagata = false;
+    this.postFattura(newFattura);
+  }
+
   compareFatture (f1: Fattura, f2: Fattura) {
     if ( f1.intestatario.nome < f2.intestatario.nome ){
       return -1;
@@ -171,7 +182,7 @@ export class AppComponent implements OnInit {
       case 'TUTTE': this.fattureVisualizzate = this.fatture; break;
       case 'PAGATE': this.fattureVisualizzate = this.fatture.filter(fatt => fatt.pagata); break;
       case 'DA_FATTURARE': this.fattureVisualizzate = this.fatture.filter(fatt => !fatt.dataEmissione); break;
-      case 'IN_RITARDO': this.fattureVisualizzate = this.fatture.filter(fatt => fatt.dataEmissione && fatt.dataEmissione < new Date() ); break;
+      case 'IN_PAGAMENTO': this.fattureVisualizzate = this.fatture.filter(fatt => fatt.dataEmissione && !fatt.pagata); break;
     }
   }
 }

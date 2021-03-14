@@ -8,7 +8,7 @@ import { Fattura, TipologiaFattura } from '../domain/fattura';
 })
 export class FattureService {
 
-  private endpoint: string = 'https://fatture-manager.herokuapp.com'; //'localhost:8080'
+  private endpoint: string = 'http://localhost:8080' //'https://fatture-manager.herokuapp.com'; //
 
   private constructor(private httpClient: HttpClient) {}
 
@@ -28,7 +28,7 @@ export class FattureService {
     return this.httpClient.delete<string>(this.endpoint + '/fatture/' + fattura._id);
   }
 
-  getPeriodoFattura(fattura: Fattura): string {
+  getDataFineFattura(fattura: Fattura): Date {
     if (fattura.dataDiPartenza) {
       const dataDiPartenza = new Date(fattura.dataDiPartenza);
       let offset;
@@ -39,10 +39,10 @@ export class FattureService {
         case TipologiaFattura.trimestrale: offset=90*24*60*60*1000; break;
         case TipologiaFattura.semestrale: offset=183*24*60*60*1000; break;
       }
-      const dataFine = new Date(dataDiPartenza.getTime() + offset)
-      return dataDiPartenza.toLocaleDateString() + ' - ' + dataFine.toLocaleDateString();
+      const dataFine = new Date(dataDiPartenza.getTime() + offset);
+      return dataFine;
     }
-    else return '';
+    else return null;
   }
 
   isFatturaInRitardo(fattura: Fattura): boolean {
