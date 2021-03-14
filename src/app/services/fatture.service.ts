@@ -8,7 +8,7 @@ import { Fattura, TipologiaFattura } from '../domain/fattura';
 })
 export class FattureService {
 
-  private endpoint: string = 'http://localhost:8080' //'https://fatture-manager.herokuapp.com'; //
+  private endpoint: string = 'https://fatture-manager.herokuapp.com'; //'http://localhost:8080' //
 
   private constructor(private httpClient: HttpClient) {}
 
