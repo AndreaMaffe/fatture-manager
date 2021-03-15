@@ -43,7 +43,7 @@
       <th mat-header-cell *matHeaderCellDef>Stato</th>
       <td mat-cell *matCellDef="let fattura">
         <mat-chip-list>
-          <mat-chip *ngIf="!fattura.dataEmissione" color="warn" selected>Da fatturare</mat-chip>
+          <mat-chip *ngIf="!fattura.dataEmissione && !fattura.pagata" color="warn" selected>Da fatturare</mat-chip>
           <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && !isFatturaInRitardo(fattura)" color="grey" selected>In attesa di pagamento</mat-chip>
           <mat-chip *ngIf="fattura.dataEmissione && !fattura.pagata && isFatturaInRitardo(fattura)" color="warn" selected>Pagamento in ritardo</mat-chip>
           <mat-chip *ngIf="fattura.pagata" color="success" selected>Pagata</mat-chip>

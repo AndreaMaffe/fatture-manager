@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   logoSrc = 'assets/logo-codigital.png';
   fatture: Fattura[];
   fattureVisualizzate: Fattura[];
+  activeFilter: string;
 
   constructor(
     private dialogService: MatDialog,
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getFatture();
+    this.activeFilter='TUTTE';
   }
 
   openAddFatturaDialog() {
@@ -114,7 +116,7 @@ export class AppComponent implements OnInit {
     this.fattureService.getFatture().subscribe( (data: Fattura[]) => {
       console.log({data});
       this.fatture = data;
-      this.fattureVisualizzate = data.sort(this.compareFatture);
+      this.fattureVisualizzate = data;
     })
   }
 
@@ -122,7 +124,7 @@ export class AppComponent implements OnInit {
     console.log({fattura});
     this.fattureService.postFattura(fattura).subscribe( (data: Fattura) => {
       this.fatture.push(data);
-      this.fattureVisualizzate = [...this.fatture].sort(this.compareFatture);;
+      this.filterFatture(this.activeFilter);
     });
   }
 
@@ -132,7 +134,7 @@ export class AppComponent implements OnInit {
       const fatturaDaModificare = this.fatture.find(f => f._id === fattura._id);
       const index = this.fatture.indexOf(fatturaDaModificare);
       this.fatture[index] = fattura;
-      this.fattureVisualizzate = [...this.fatture].sort(this.compareFatture);
+      this.filterFatture(this.activeFilter);
       if (!oldFattura.dataEmissione && fattura.dataEmissione && fattura.tipologia && fattura.tipologia !== 0)
         this.repeatFattura(fattura);
     });
@@ -150,8 +152,8 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fattureService.deleteFattura(fattura).subscribe( (data: any) => {
-          this.fatture = [...this.fatture.filter(fattura => fattura._id !== data._id)];
-          this.fattureVisualizzate = this.fatture.sort(this.compareFatture);
+          this.fatture = this.fatture.filter(fattura => fattura._id !== data._id);
+          this.filterFatture(this.activeFilter);
         })
       }
     });

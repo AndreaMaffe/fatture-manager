@@ -6,14 +6,14 @@
 <div style="padding: 20px;">
 
   <span style="margin-right: 15px;">Mostra:</span>
-  <mat-button-toggle-group (change)="filterFatture($event.value)" value="TUTTE">
+  <mat-button-toggle-group (change)="filterFatture($event.value)" [(ngModel)]="activeFilter">
     <mat-button-toggle value="TUTTE">Tutte</mat-button-toggle>
     <mat-button-toggle value="PAGATE">Pagate</mat-button-toggle>
     <mat-button-toggle value="DA_FATTURARE">Da fatturare</mat-button-toggle>
     <mat-button-toggle value="IN_PAGAMENTO">In attesa di pagamento</mat-button-toggle>
   </mat-button-toggle-group>
 
-  <app-fatture-table  [fatture]="fattureVisualizzate"
+  <app-fatture-table  [fatture]="fattureVisualizzate?.sort(compareFatture)"
                       (onEditFattura)="openEditFatturaDialog($event)"
                       (onDeleteFattura)="deleteFattura($event)">
   </app-fatture-table>
